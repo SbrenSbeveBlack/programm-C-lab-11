@@ -1,0 +1,40 @@
+#include <stdarg.h>
+#include <stdiog.h>
+double calculate(char operation, int num_val, ...){
+    va_list args;
+    int i;
+    double max = -DBL_MAX;
+    double min = DBL_MAX;
+    double sum=0;
+    
+    va_start(args,num_val);
+    
+    for(i=0;i<num_val;i++){
+        double val=va_arg(args,double);
+        
+        sum += val;
+        
+        if(val>max){
+            max=val;
+        }
+        
+        if(val<min){
+            min=val;
+        }
+    }
+    
+    va_end(args);
+    
+    switch(operation){
+        case 's':
+            return sum;
+        case 'm':
+            return max;
+        case 'n':
+            return min;
+        case 'a':
+            return sum/num_val;
+        default:
+            return 0;
+    }
+}
